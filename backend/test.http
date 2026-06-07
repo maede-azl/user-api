@@ -1,0 +1,11 @@
+POST http://localhost:3000/users/register
+Content-Type: application/json
+
+{
+    "firstname": "rasta",
+    "lastname": "rashidid",
+    "email": "rast@gmail.com",
+    "password": "1236556987",
+    "phone": "09535266840",
+    "username": "rasta"
+}

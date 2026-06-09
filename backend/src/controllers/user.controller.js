@@ -11,8 +11,9 @@ const register = async (req, res) => {
         }
 
         const {firstname, lastname, email, password, phone, username} = validation.data
+        const avatarPath = req.file ? req.file.path : null
         
-        const user = await createUser({firstname, lastname, email, password, phone, username})
+        const user = await createUser({firstname, lastname, email, password, phone, username, avatarPath})
         return successResponse(res, 201, user)
     } catch (error) {
         if (error.code === 'P2002'){

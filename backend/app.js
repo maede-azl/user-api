@@ -4,6 +4,7 @@ const cors = require('cors')
 const swaggerUi = require('swagger-ui-express')
 const swaggerSpec = require('./src/config/swagger')
 const userRoutes = require('./src/routes/user.route')
+const authRoutes = require('./src/routes/auth.route')
 
 const app = express()
 
@@ -15,5 +16,6 @@ app.use('/uploads', express.static('uploads'))
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.use('/users', userRoutes)
+app.use('/auth', authRoutes)
 
 module.exports = app

@@ -1,4 +1,4 @@
-const {createUser} = require('../services/user.service')
+const {createUser, getAllUsers} = require('../services/user.service')
 const {successResponse, errorResponse} = require('../utils/response')
 const {registerSchema} = require('../validations/user.validation')
 
@@ -24,4 +24,14 @@ const register = async (req, res) => {
     }
 }
 
-module.exports = {register}
+const getUsers = async(req, res) => {
+    try{
+        const users = await getAllUsers()
+        return successResponse(res, 200, users)
+    } catch (error) {
+        console.log(error)
+        return errorResponse(res, 500, 'خطای سرور')
+    }
+}
+
+module.exports = {register, getUsers}

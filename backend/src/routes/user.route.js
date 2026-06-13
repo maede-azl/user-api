@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const {register} = require('../controllers/user.controller')
+const {register, getUsers} = require('../controllers/user.controller')
 const upload = require('../config/multer')
+const {authMiddleware} = require('../middlewares/auth.middleware')
 
 /**
  * @swagger
@@ -56,5 +57,23 @@ const upload = require('../config/multer')
  */
 
 router.post('/register', upload.single('avatar'), register)
+
+/**
+ * @swagger
+ * /users:
+ *    get:
+ *      summery: لیست تمام کاربران
+ *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
+ *      responses:
+ *        200:
+ *          description: لیست کابران با موفقیت دریافت شد
+ *        401:
+ *          description: توکن نامعتبر یا ارسال نشده
+ *        500:
+ *          description: خطای سرور
+ */
+router.get('/', authMiddleware, getUsers)
 
 module.exports = router

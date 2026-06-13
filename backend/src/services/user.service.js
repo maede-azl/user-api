@@ -20,4 +20,20 @@ const createUser = async({firstname, lastname, email, password, phone, username,
     return userWithoutPassword
 }
 
-module.exports = {createUser}
+const getAllUsers = async() => {
+    const users = await prisma.user.findMany({
+        select: {
+            id: true,
+            firstname: true,
+            lastname: true,
+            email: true,
+            phone: true,
+            username: true,
+            avatar: true,
+            createdAt: true
+        }
+    })
+    return users
+}
+
+module.exports = {createUser, getAllUsers}

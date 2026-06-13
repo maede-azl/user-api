@@ -18,10 +18,6 @@ function Register() {
     });
     };
 
-    /*const handleSubmit = async () => {
-        console.log(form);
-    };*/
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         

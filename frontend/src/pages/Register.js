@@ -9,6 +9,7 @@ function Register() {
     email: "",
     userName: "",
     password: "",
+    avatar: "",
   });
 
   const handleChange = (e) =>{
@@ -18,21 +19,30 @@ function Register() {
     });
     };
 
+    const handleFileChange = (e) => {
+        setForm({
+            ...form,
+            avatar: e.target.files[0]
+        })
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
+        const formData = new FormData();
+        formData.append("firstname", form.firstName);
+        formData.append("lastname", form.lastName);
+        formData.append("email", form.email);
+        formData.append("password", form.password);
+        formData.append("phone", form.phone);
+        formData.append("username", form.userName);
+        formData.append("avatar", form.avatar);
+
         try{
-            const res = await axios.post("http://localhost:3000/users/register", {
-                firstname: form.firstName,
-                lastname: form.lastName,
-                email: form.email,
-                password: form.password,
-                phone: form.phone,
-                username: form.userName,
-            });
-            console.log("SUCCESS: " , res.data)
-        } catch (err){
-            console.log("error: ", err);
+            const res = await axios.post("http://localhost:3000/users/register", formData);
+            console.log("SECCESS: ", res.data);
+        } catch (err) {
+            console.log("error: ", err.response.data);
         }
     };
 
@@ -85,6 +95,13 @@ function Register() {
             placeholder="Password"
             value={form.password}
             onChange={handleChange} />
+            <br />
+            <br />
+
+            <input name="avatar"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange} />
             <br />
             <br />
 

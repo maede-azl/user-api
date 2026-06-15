@@ -3,9 +3,9 @@ const {successResponse, errorResponse} = require("../utils/response")
 
 const login = async (req, res) => {
     try{
-        const {email, password} = req.body
+        const {username, password} = req.body
 
-        const result = await loginUser({email, password})
+        const result = await loginUser({username, password})
 
         successResponse(res, 200, result)
 

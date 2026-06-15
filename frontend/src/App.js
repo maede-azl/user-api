@@ -3,6 +3,11 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import UserList from "./pages/UserList";
 
+function PrivateRoute({children}){
+  const token = localStorage.getItem("token");
+  return token ? children : <navigate to="/login" />
+}
+
 function App(){
   return (
     <BrowserRouter>

@@ -25,6 +25,7 @@ function Login() {
         password: form.password,
       });
       localStorage.setItem("token", res.data.data.token);
+      window.location.href = "/users";
       console.log("SUCCESS: ", res.data);
     } catch (err) {
       setError("Username or password is incorrect.");

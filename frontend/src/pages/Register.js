@@ -108,7 +108,7 @@ function Register() {
           <input
             name="email"
             type="email"
-            placeholder="mohammd@gmail.com"
+            placeholder="mohammad@gmail.com"
             value={form.email}
             onChange={handleChange}
             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-blue-400"

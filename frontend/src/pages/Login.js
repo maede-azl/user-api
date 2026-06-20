@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import {loginSchema} from "../validations/auth.validation";
 
 function Login() {
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
+  const [fieldErrors, setFieldErrors] = useState({});
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -18,6 +20,17 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setFieldErrors({});
+
+    const validation = loginSchema.safeParse(form);
+    if (!validation.success) {
+      const errors = {};
+      validation.error.issues.forEach((issue) => {
+        errors[issue.path[0]] = issue.message;
+      });
+      setFieldErrors(errors);
+      return;
+    }
 
     try {
       const res = await axios.post("http://localhost:3000/auth/login", {
@@ -57,6 +70,9 @@ function Login() {
             onChange={handleChange}
             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-blue-400"
           />
+          {fieldErrors.username && (
+            <p className="text-xs text-red-600 mt-1">{fieldErrors.username}</p>
+          )}
         </div>
 
         <div className="mb-5">
@@ -69,6 +85,9 @@ function Login() {
             onChange={handleChange}
             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-blue-400"
           />
+          {fieldErrors.password && (
+            <p className="text-xs text-red-600 mt-1">{fieldErrors.password}</p>
+          )}
         </div>
 
         {error && (
